@@ -11,36 +11,36 @@ Client:
             generator:
                 strategy: SEQUENCE
     fields:
-        lastName:
-            type: string
-            nullable: true
-            length: 48
-            options:
-                fixed: false
-            column: last_name
-        firstName:
-            type: string
-            nullable: true
-            length: 48
-            options:
-                fixed: false
-            column: first_name
-        login:
-            type: string
-            nullable: true
-            length: 48
-            options:
-                fixed: false
-        email:
+        nom:
             type: string
             nullable: true
             length: 100
             options:
                 fixed: false
+            column: nom
+        prenom:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: prenom
+        login:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
         password:
             type: string
             nullable: true
-            length: 256
+            length: 100
             options:
                 fixed: false
     lifecycleCallbacks: {  }

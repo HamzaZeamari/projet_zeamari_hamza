@@ -1,11 +1,10 @@
 <?php
 
 require_once "vendor/autoload.php";
-
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-date_default_timezone_set('America/Lima');
+date_default_timezone_set('Europe/Paris');
 const JWT_SECRET = "azerty123456789";
 
 class Config {
@@ -17,15 +16,17 @@ class Config {
     {
         $isDevMode = true;
         $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/config/yaml"), $isDevMode);
-        $conn = array(
-            'host' => 'ec2-63-34-153-52.eu-west-1.compute.amazonaws.com',
+
+        $connexionInformation = array(
+            'host' => 'ec2-54-74-35-87.eu-west-1.compute.amazonaws.com',
             'driver' => 'pdo_pgsql',
-            'user' => 'fcijrquzikextq',
-            'password' => '5aaf1ffdebded57f6c6258bcf84d1148903193ce48e9648ee87bbc78e690a62b',
-            'dbname' => 'd83b92e9vigot1',
+            'user' => 'vbwuomevvnbwgg',
+            'password' => '301966df7eddd260617f5c383cea77c62955daf7eb378a4dda739d81d6aa2cce',
+            'dbname' => 'd4l6rma9dejrbr',
             'port' => '5432'
         );
-        $this->entityManager = EntityManager::create($conn, $config);
+
+        $this->entityManager = EntityManager::create($connexionInformation, $config);
 
         $this->options = [
             "attribute" => "token",
@@ -35,13 +36,13 @@ class Config {
             "algorithm" => ["HS256"],
             "secret" => JWT_SECRET,
             "path" => ["/api"],
-            "ignore" => ["/api/login", "/api/signin"],
+            "ignore" => ["/api/connexion", "/api/inscription"],
             "error" => function ($response, $arguments) {
                 $data["status"] = "error";
                 $data["message"] = $arguments["message"];
                 return $response
                     ->withHeader("Content-Type", "application/json")
-                    ->getBody()->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+                    ->getBody()->write(json_encode($data, JSON_UNESCAPED_SLASHES));
             }
         ];
     }

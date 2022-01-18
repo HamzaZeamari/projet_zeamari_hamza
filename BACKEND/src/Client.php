@@ -27,14 +27,14 @@ class Client
      *
      * @ORM\Column(name="last_name", type="string", length=48, nullable=true)
      */
-    private $lastName;
+    private $nom;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="first_name", type="string", length=48, nullable=true)
      */
-    private $firstName;
+    private $prenom;
 
     /**
      * @var string|null
@@ -55,7 +55,7 @@ class Client
      *
      * @ORM\Column(name="password", type="string", length=256, nullable=true)
      */
-    private $password;
+    private $MDP;
 
 
     /**
@@ -71,13 +71,13 @@ class Client
     /**
      * Set lastName.
      *
-     * @param string|null $lastName
+     * @param string|null $nom
      *
      * @return Client
      */
-    public function setLastName($lastName = null)
+    public function setNom($nom = null)
     {
-        $this->lastName = $lastName;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -87,21 +87,21 @@ class Client
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getNom()
     {
-        return $this->lastName;
+        return $this->nom;
     }
 
     /**
      * Set firstName.
      *
-     * @param string|null $firstName
+     * @param string|null $prenom
      *
      * @return Client
      */
-    public function setFirstName($firstName = null)
+    public function setPrenom($prenom = null)
     {
-        $this->firstName = $firstName;
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -111,9 +111,9 @@ class Client
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getPrenom()
     {
-        return $this->firstName;
+        return $this->prenom;
     }
 
     /**
@@ -167,13 +167,13 @@ class Client
     /**
      * Set password.
      *
-     * @param string|null $password
+     * @param string|null $MDP
      *
      * @return Client
      */
-    public function setPassword($password = null)
+    public function setMDP($MDP = null)
     {
-        $this->password = $password;
+        $this->MDP = $MDP;
 
         return $this;
     }
@@ -183,8 +183,8 @@ class Client
      *
      * @return string|null
      */
-    public function getPassword()
+    public function getMDP()
     {
-        return $this->password;
+        return $this->MDP;
     }
 }
