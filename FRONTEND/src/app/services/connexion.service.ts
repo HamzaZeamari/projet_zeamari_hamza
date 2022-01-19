@@ -16,6 +16,7 @@ export class ConnexionService {
   constructor(private requete : HttpClient) {
     let temp: Utilisateur = JSON.parse(localStorage.getItem('utilisateurConnecte')!);
     InterceptorsInterceptor.token = JSON.parse(localStorage.getItem('token')!);
+	this.utilSub = new BehaviorSubject<Utilisateur>(temp);
     this.utilisateurConnecte = this.utilSub.asObservable();
   }
 
@@ -50,6 +51,6 @@ export class ConnexionService {
     let httpOptions = {
       headers: new HttpHeaders({"Content-Type": "application/x-www-form-urlencoded"})
     };
-    return this.requete.post<Utilisateur>("/api/signin", donneesInscription, httpOptions);
+    return this.requete.post<Utilisateur>("/api/inscription", donneesInscription, httpOptions);
   }
 }
