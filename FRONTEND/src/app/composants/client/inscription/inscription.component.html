@@ -4,7 +4,7 @@
       <label for="nom" class="form-label">Nom</label>
       <input type="text" name="nom" id="nom" class="form-control" formControlName="nom">
       <div>
-        <app-gestion-mess [controller]="formulaireInscription.controls['nom'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="formulaireInscription.get('nom')?.value"></app-gestion-mess>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <label for="prenom" class="form-label">Prénom</label>
       <input type="text" name="prenom" id="prenom" class="form-control" formControlName="prenom">
       <div>
-        <app-gestion-mess [controller]="formulaireInscription.controls['prenom'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="formulaireInscription.get('prenom')?.value"></app-gestion-mess>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
     <label for="email" class="form-label">Email</label>
     <input type="email" name="email" id="email" class="form-control" formControlName="email">
     <div>
-      <app-gestion-mess [controller]="formulaireInscription.controls['email'].value"></app-gestion-mess>
+      <app-gestion-mess [controller]="formulaireInscription.get('email')?.value"></app-gestion-mess>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
     <label for="identifiant" class="form-label">Login</label>
     <input type="text" name="identifiant" id="identifiant" class="form-control" formControlName="identifiant">
     <div>
-      <app-gestion-mess [controller]="formulaireInscription.controls['identifiant'].value"></app-gestion-mess>
+      <app-gestion-mess [controller]="formulaireInscription.get('identifiant')?.value"></app-gestion-mess>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
       <label for="mdp" class="form-label">Mot de passe</label>
       <input type="password" name="mdp" id="mdp" class="form-control" formControlName="mdp">
       <div>
-        <app-gestion-mess [controller]="formulaireInscription.controls['mdp'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="formulaireInscription.get('mdp')?.value"></app-gestion-mess>
       </div>
     </div>
 
@@ -46,12 +46,15 @@
       <label for="mdp" class="form-label">Confirmer le mot de passe</label>
       <input type="password" name="mdp_validation" id="mdp_validation" class="form-control" formControlName="mdp_validation">
       <div>
-        <app-gestion-mess [controller]="formulaireInscription.controls['mdp_validation'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="formulaireInscription.get('mdp_validation')?.value"></app-gestion-mess>
       </div>
     </div>
   </div>
 
   <div>
+    <div *ngIf="err">
+      <p>{{ err }}</p>
+    </div>
     <div>
         <button type="submit">S'inscrire</button>
     </div>

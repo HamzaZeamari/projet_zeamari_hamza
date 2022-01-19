@@ -1,1 +1,14 @@
-<p>element-detail works!</p>
+<div>
+  <div *ngIf="err">
+    <p>{{ err }}</p>
+  </div>
+<div>
+    <p>Produit {{ prod.id }}</p>
+    <p>Nom : {{ prod.nom }}</p>
+    <p>Categorie : {{ prod.categorie }}</p>
+    <p>Stock : {{ prod.stock }}</p>
+    <p>Prix : {{ prod.prix }} €</p>
+    <button (click)="ajouter(prod)">Add to cart</button>
+  </div>
+</div>
+

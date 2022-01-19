@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ValidationService} from "../../validation.service";
+import {ValidationService} from "../../services/validation.service";
 
 @Component({
   selector: 'app-gestion-mess',

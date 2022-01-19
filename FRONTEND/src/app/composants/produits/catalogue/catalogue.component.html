@@ -1,1 +1,29 @@
-<p>catalogue works!</p>
+<h1>Catalogue</h1>
+
+<app-recherche></app-recherche>
+
+<table>
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Catégorie</th>
+    <th scope="col">Stock</th>
+    <th scope="col">Prix</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let p of produits">
+    <th scope="row">{{ p.id }}</th>
+    <td>{{ p.nom }}</td>
+    <td>{{ p.categorie }}</td>
+    <td>{{ p.stock }}</td>
+    <td><strong>{{ p.prix }} €</strong></td>
+    <td>
+      <button><a [routerLink]="['/produits/produit', p.id]">Voir article</a></button>
+      <button (click)="ajouter(p)">Ajouter au panier</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

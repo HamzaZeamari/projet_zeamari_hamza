@@ -8,7 +8,7 @@ import {CompteComponent} from "./compte/compte.component";
 import {GestionMessComponent} from "../gestion-mess/gestion-mess.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-const appChild: Routes = [
+const app: Routes = [
   {
     path: 'inscription',
     component: InscriptionComponent,
@@ -33,7 +33,7 @@ const appChild: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(appChild),
+    RouterModule.forChild(app),
     ReactiveFormsModule
   ]
 })

@@ -1,6 +1,14 @@
-<div class="d-flex flex-row bd-highlight mt-3 fs-4">
-  <a class="me-5" [routerLink]="['/']">Accueil</a>
-  <a class="me-5" [routerLink]="['/produits/catalogue']">Catalogue des produits</a>
-  <a class="me-5" [routerLink]="['/client/inscription']">S'inscrire</a>
-  <a class="me-5" [routerLink]="['/client/connexion']">Se connecter</a>
+<div>
+  <a [routerLink]="['/']">Accueil</a>
+  <div>
+    <a [routerLink]="['/client/inscription']">S'inscrire</a>
+    <a [routerLink]="['/client/connexion']">Se connecter</a>
+  </div>
+  <div>
+    <a [routerLink]="['/produits/catalogue']">Catalogue des produits</a>
+    <a [routerLink]="['/produits/panier']">Panier</a>
+    <a (click)="deconnexion()">
+      Déconnexion du compte
+    </a>
+  </div>
 </div>

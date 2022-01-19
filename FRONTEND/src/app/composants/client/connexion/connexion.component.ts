@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ValidationService} from "../../../validation.service";
+import {ValidationService} from "../../../services/validation.service";
+import {ConnexionService} from "../../../services/connexion.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.scss']
+  styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent implements OnInit {
   // Initialisation du formulaire de connexion
   formulaireConnexion!: FormGroup;
+  err!: string;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder , private router: Router, private connexionService: ConnexionService) { }
 
   // Lorsque la page se lance on appelle la création du formulaire
   ngOnInit(): void {
@@ -26,7 +29,18 @@ export class ConnexionComponent implements OnInit {
   onSubmit() : void {
     switch (this.formulaireConnexion.valid){
       case true:
-        console.log(this.formulaireConnexion.value);
+        try{
+          this.connexionService.connexion(this.formulaireConnexion.get("identifiant")?.value, this.formulaireConnexion.get("mot_de_passe")?.value).subscribe(
+            donnees => {
+              this.router.navigate(["client/compte"]);
+            }
+        )}
+        catch (e){
+          // @ts-ignore
+          this.err = e.value.toString();
+          console.log(e);
+        }
+
         break;
       default :
         Object.keys(this.formulaireConnexion.controls).forEach(field => {

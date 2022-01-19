@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {ValidationService} from "../../../validation.service";
+import {ValidationService} from "../../../services/validation.service";
+import {Router} from "@angular/router";
+import {ConnexionService} from "../../../services/connexion.service";
 
 
 @Component({
@@ -11,8 +13,10 @@ import {ValidationService} from "../../../validation.service";
 export class InscriptionComponent implements OnInit {
   // Initialisation du formulaire d'inscription
   formulaireInscription!: FormGroup;
+  err: string = "";
 
-  constructor(private formBuilder: FormBuilder) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private connexionService: ConnexionService) { }
 
   ngOnInit(): void {
     // Former le formulaire avec le formBuilder pour : nom, prenom, identifiant, mdp, mdp_validation et email
@@ -31,14 +35,29 @@ export class InscriptionComponent implements OnInit {
   // Lors de la validation du formulaire, l'inscription sera faite
   // ou bien on pointera les éléments qui sont faux
   onSubmit() : void {
-    if (this.formulaireInscription.valid) {
-      console.log(this.formulaireInscription.value);
-    }
-    else {
-      Object.keys(this.formulaireInscription.controls).forEach(field => {
-        const control = this.formulaireInscription.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
+    switch (this.formulaireInscription.valid){
+      case true:
+        try{
+          this.connexionService.inscription(this.formulaireInscription.get("email")?.value,this.formulaireInscription.get("mdp")?.value,
+                                            this.formulaireInscription.get("prenom")?.value,this.formulaireInscription.get("nom")?.value,
+                                            this.formulaireInscription.get("identifiant")?.value).subscribe(
+            donnees => {
+              this.router.navigate(["client/connexion"]);
+            }
+          )}
+        catch (e){
+          // @ts-ignore
+          this.err = e.value.toString();
+          console.log(e);
+        }
+
+        break;
+      default :
+        Object.keys(this.formulaireInscription.controls).forEach(field => {
+          const control = this.formulaireInscription.get(field);
+          control?.markAsTouched({ onlySelf: true });
+        });
+        break;
     }
   }
 

@@ -1,1 +1,11 @@
-<p>panier works!</p>
+<h1>Panier</h1>
+
+<div class="fs-3" *ngFor="let panier of paniers | async">
+  <p>{{ panier.produit.nom }} {{ panier.stock }}
+    <button (click)="supprimer(panier.produit)">Supprimer</button>
+    <button (click)="ajouter(panier.produit)">Ajouter</button>
+  </p>
+</div>
+<div *ngIf="prix | async; let total">
+  <button (click)="transaction()">Total à payer: {{ total }} €</button>
+</div>

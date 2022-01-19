@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ConnexionService} from "../../../services/connexion.service";
+import {Utilisateur} from "../../../../shared/models/Utilisateur";
 
 @Component({
   selector: 'app-compte',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./compte.component.css']
 })
 export class CompteComponent implements OnInit {
+  utilisateurConnecte!: Utilisateur;
 
-  constructor() { }
+  constructor(private connexionService: ConnexionService) {
+    this.utilisateurConnecte = connexionService.getValue;
+  }
 
   ngOnInit(): void {
   }

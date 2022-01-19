@@ -2,6 +2,7 @@
 
 
 require '../vendor/autoload.php';
+require '../bootstrap.php';
 
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;

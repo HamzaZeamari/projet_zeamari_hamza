@@ -1,1 +1,21 @@
-<p>recherche works!</p>
+
+<div>
+  <label for="categorie">Categorie : </label>
+  <select id="categorie" name="categorie"[(ngModel)]="categorie">
+    <option value="aucun">Aucun Filtre</option>
+    <option value="reebok">Reebok</option>
+    <option value="nike">Nike</option>
+    <option value="vans">Vans</option>
+    <option value="adidas">Adidas</option>
+  </select>
+</div>
+<div class="p-2 bd-highlight">
+  <label for="filtre">Trier :</label>
+  <select id="filtre" name="filtre" [(ngModel)]="filtre">
+    <option value="aucun">Aucun</option>
+    <option value="croissant"> Prix : Ordre croissant</option>
+    <option value="decroissant"> Prix : Ordre décroissant</option>
+  </select>
+</div>
+<button class="btn btn-primary ms-auto p-2 bd-highlight"(click)="recherche()">Rechercher avec Filtre</button>
+
