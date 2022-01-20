@@ -12,7 +12,7 @@ use Firebase\JWT\JWT;
 
 $app = AppFactory::create();
 
-const JWT_SECRET = "azerty123456789";
+$JWT_SECRET = "azerty123456789";
 
 
 function addHeaders(Response $response): Response
@@ -48,10 +48,10 @@ $app->post('/api/connexion', function(Request $request, Response $response, $arg
     $body = $request->getParsedBody();
 
 
-    $identifiant = $body['login'] ?? "";
-    $mdp =  $body['password'] ?? "";
+    $login = $body['login'] ?? "";
+    $password =  $body['password'] ?? "";
 
-    $err = $identifiant == "" || $mdp == "";
+    $err = $login == "" || $password == "";
     if ($err) {
         // Problème avec les champs
         $donnees["error"] = "Error with the accounts field";
@@ -61,9 +61,9 @@ $app->post('/api/connexion', function(Request $request, Response $response, $arg
     }
 
     $repClient = Config::getInstance()->entityManager->getRepository('Client');
-    $clientLogin = $repClient->findOneBy(array("login" => $identifiant));
+    $clientLogin = $repClient->findOneBy(array("login" => $login));
 
-    if ($clientLogin == null || password_verify($mdp, $clientLogin->getPassword()) == false) {
+    if ($clientLogin == null || password_verify($password, $clientLogin->getPassword()) == false) {
         $donnees["error"] = "Error with the email or password";
         $response = $response->withStatus(403);
         $response->getBody()->write(json_encode($donnees, JSON_UNESCAPED_SLASHES));
@@ -77,7 +77,7 @@ $app->post('/api/connexion', function(Request $request, Response $response, $arg
     $donnees["nom"] = $clientLogin->getNom();
 
     $response = addHeaders($response);
-    $response = createJWT($response, $identifiant);
+    $response = createJWT($response, $login);
     $response->getBody()->write(json_encode($donnees, JSON_UNESCAPED_SLASHES));
 
     return $response;
@@ -92,16 +92,16 @@ $app->post('/api/inscription', function(Request $request, Response $response, $a
 
     $nom = $body['nom'] ?? "";
     $prenom = $body['prenom'] ?? "";
-    $identifiant = $body['login'] ?? "";
-    $mdp = $body['password'] ?? "";
+    $login = $body['login'] ?? "";
+    $password = $body['password'] ?? "";
     $email = $body['email'] ?? "";
 
 
     $error = $email == "" ||
         $nom == "" ||
         $prenom == "" ||
-        $mdp == "" ||
-        $identifiant == "";
+        $password == "" ||
+        $login == "";
 
     // Si une erreur est récupéré du fait que des champs sont manquants
     if ($error) {
@@ -123,7 +123,7 @@ $app->post('/api/inscription', function(Request $request, Response $response, $a
         return $response;
     }
 
-    $clientIdentifiant = $repClient->findOneBy(array("login" => $identifiant));
+    $clientIdentifiant = $repClient->findOneBy(array("login" => $login));
 
     if ($clientIdentifiant != null) {
         // Si le client existe déjà de part son login on renvoie une erreur
@@ -138,8 +138,8 @@ $app->post('/api/inscription', function(Request $request, Response $response, $a
     $newClient->setEmail($email);
     $newClient->setPrenom($prenom);
     $newClient->setNom($nom);
-    $newClient->setLogin($identifiant);
-    $newClient->setMDP(password_hash($mdp, PASSWORD_DEFAULT));
+    $newClient->setLogin($login);
+    $newClient->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
     // Qui sera ajouter à notre liste
     Config::getInstance()->entityManager->persist($newClient);
@@ -147,7 +147,7 @@ $app->post('/api/inscription', function(Request $request, Response $response, $a
 
     //On garde le mail et l'id pour les reutiliser ultérieurement
     $donnees["email"] = $email;
-    $donnees["login"] = $identifiant;
+    $donnees["login"] = $login;
 
 
     $response = addHeaders($response);
@@ -182,6 +182,7 @@ $app->get('/api/produits', function(Request $request, Response $response, $args)
     return $response;
 });
 
-
+$app->add(new \Tuupola\Middleware\JwtAuthentication(Config::getInstance()->options));
+$app->run();
 
 

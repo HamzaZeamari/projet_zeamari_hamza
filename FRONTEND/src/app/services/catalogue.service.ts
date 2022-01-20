@@ -14,7 +14,6 @@ export class CatalogueService {
 
   constructor(private requete : HttpClient) { }
 
-  // @ts-ignore
   public getSubProduits() : Subject<Array<Produit>> {
     if (this.subProduits == null) {
       this.subProduits = new Subject<Array<Produit>>();
@@ -27,11 +26,10 @@ export class CatalogueService {
           }
         }
       );
-      return this.subProduits;
     }
+    return this.subProduits;
   }
 
-  // @ts-ignore
   public getProduits() : Array<Produit> {
     if (this.subProduits == null) {
       this.subProduits = new Subject<Array<Produit>>();
@@ -44,13 +42,15 @@ export class CatalogueService {
           }
         }
       );
-      return this.listProduits;
     }
-}
+    return this.listProduits;
+  }
   public activerFiltre(d: any) : void {
-    this.listProduits = this.listeProduitsComplet.slice();
+    if (this.listProduits != null) {
+      this.listProduits = this.listeProduitsComplet.slice();
+    }
     if (d["categorie"] !== "aucun") {
-      this.listProduits = this.listProduits.filter((product) => product.categorie === d["categorie"]);
+      this.listProduits = this.listProduits.filter((p) => p.categorie === d["categorie"]);
     }
     if (d["filtre"] != "aucun") {
       switch (d["filtre"]) {

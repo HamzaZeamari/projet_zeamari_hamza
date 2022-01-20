@@ -24,8 +24,8 @@ export class ValidationService {
 
   static validationMDP(controller: FormControl){
     // On récupère le mot de passe et sa confirmation via le FormControl
-    let mdp = controller.get("MDP");
-    let validation = controller.get("validationMDP");
+    let mdp = controller.get("password");
+    let validation = controller.get("mdp_validation");
 
     switch (true){
       // On valide si le mdp est définit et identique à celle dans le champ de validation

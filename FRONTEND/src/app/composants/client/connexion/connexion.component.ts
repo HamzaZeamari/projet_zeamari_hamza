@@ -14,23 +14,25 @@ export class ConnexionComponent implements OnInit {
   formulaireConnexion!: FormGroup;
   err!: string;
 
+
   constructor(private formBuilder: FormBuilder , private router: Router, private connexionService: ConnexionService) { }
 
   // Lorsque la page se lance on appelle la création du formulaire
   ngOnInit(): void {
     this.formulaireConnexion = this.formBuilder.group({
-      identifiant: ["", [Validators.required]],
-      mot_de_passe: ["", [Validators.required]]
+      login: ["", [Validators.required]],
+      password: ["", [Validators.required]]
     });
   }
 
   // Lors de la validation du formulaire, la connexion sera faite
   // ou bien on pointera les éléments qui sont faux
   onSubmit() : void {
+
     switch (this.formulaireConnexion.valid){
       case true:
         try{
-          this.connexionService.connexion(this.formulaireConnexion.get("identifiant")?.value, this.formulaireConnexion.get("mot_de_passe")?.value).subscribe(
+          this.connexionService.connexion(this.login,this.password).subscribe(
             donnees => {
               this.router.navigate(["client/compte"]);
             }
@@ -50,6 +52,9 @@ export class ConnexionComponent implements OnInit {
         break;
     }
   }
+
+  get login(){ return this.formulaireConnexion.get("login")?.value;}
+  get password() { return this.formulaireConnexion.get("password")?.value;}
 
 
 }

@@ -51,21 +51,20 @@ export class PanierState {
     { getState, patchState }: StateContext<PanierStateModel>,
     { payload }: AddP
   ) {
+    const state = getState();
+    let panier = this.estPresent(state, payload);
 
-    let panier = this.estPresent(getState(), payload);
-    switch(panier){
-      case null:
-        let spPanier = new Panier(payload, 1);
-        patchState({
-          paniers: [...getState().paniers, spPanier]
-        });
-        break;
-      default:
-        panier.stock++;
-        patchState({
-          paniers: getState().paniers
-        });
-        break;
+    if (panier != null) {
+      panier.stock++;
+      patchState({
+        paniers: state.paniers
+      });
+    }
+    else {
+      let panier = new Panier(payload, 1);
+      patchState({
+        paniers: [...state.paniers, panier]
+      });
     }
   }
 
@@ -74,24 +73,24 @@ export class PanierState {
     { getState, patchState }: StateContext<PanierStateModel>,
     { payload }: DelP
   ) {
-    let panier: Panier = this.estPresent(getState(), payload);
-    switch (true){
-      case panier != null && panier.stock == 1:
-        patchState({
-          paniers: getState().paniers.filter((panier) => panier.produit.id != payload.id)
-        });
-        break;
-      case panier != null:
-        panier.stock--;
-        patchState({
-          paniers: getState().paniers
-        });
-        break;
-      default:
-        patchState({
-          paniers: getState().paniers
-        });
-        break;
+    const state = getState();
+    let pan: Panier = this.estPresent(state, payload);
+
+    if (pan != null && pan.stock == 1) {
+      patchState({
+        paniers: state.paniers.filter((p) => pan.produit.id != payload.id)
+      });
+    }
+    else if (pan != null) {
+      pan.stock--;
+      patchState({
+        paniers: state.paniers
+      });
+    }
+    else {
+      patchState({
+        paniers: state.paniers
+      });
     }
   }
 

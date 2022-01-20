@@ -26,12 +26,7 @@ export class ElementDetailComponent implements OnInit {
   }
 
   ajouter(prod: Produit) {
-    if(prod.stock > 0){
       this.store.dispatch(new AddP(prod));
-    }
-    else{
-      console.log("Désolé ce produit n'est plus en stock");
-    }
   }
 
 }

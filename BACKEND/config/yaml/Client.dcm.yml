@@ -1,6 +1,13 @@
 Client:
     type: entity
     table: client
+    uniqueConstraints:
+        client_login_key:
+            columns:
+                - login
+        client_email_key:
+            columns:
+                - email
     id:
         id:
             type: integer
@@ -11,21 +18,19 @@ Client:
             generator:
                 strategy: SEQUENCE
     fields:
+        login:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
         nom:
             type: string
             nullable: true
             length: 100
             options:
                 fixed: false
-            column: nom
         prenom:
-            type: string
-            nullable: true
-            length: 100
-            options:
-                fixed: false
-            column: prenom
-        login:
             type: string
             nullable: true
             length: 100

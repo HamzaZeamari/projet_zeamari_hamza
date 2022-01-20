@@ -19,6 +19,7 @@ export class InterceptorsInterceptor implements HttpInterceptor {
     if (InterceptorsInterceptor.token !== "") {
       request = request.clone({setHeaders: {Authorization: `Bearer ${InterceptorsInterceptor.token}` }});
     }
+
   // Un peu aidé d'internet car assez compliqué à tout mettre ensemble
     return next.handle(request).pipe(tap(
         (evt: HttpEvent<any>) => {

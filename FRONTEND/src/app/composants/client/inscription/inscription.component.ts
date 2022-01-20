@@ -12,9 +12,8 @@ import {ConnexionService} from "../../../services/connexion.service";
 })
 export class InscriptionComponent implements OnInit {
   // Initialisation du formulaire d'inscription
-  formulaireInscription!: FormGroup;
+  formulaireInscription: FormGroup = new FormGroup({});
   err: string = "";
-
 
   constructor(private formBuilder: FormBuilder, private router: Router, private connexionService: ConnexionService) { }
 
@@ -24,13 +23,15 @@ export class InscriptionComponent implements OnInit {
     this.formulaireInscription = this.formBuilder.group({
         prenom: ["", [Validators.required]],
         nom: ["", [Validators.required]],
-        identifiant: ["", [Validators.required]],
-        mdp: ["", [Validators.required]],
+        login: ["", [Validators.required]],
+        password: ["", [Validators.required]],
         mdp_validation: ["", [Validators.required]],
-        email: ["", [Validators.required, ValidationService.validationEMail]],
+        email: ["", [Validators.required, ValidationService.validationEMail]]
   },
-{validators : ValidationService.validationMDP})
+{validators : ValidationService.validationMDP});
+
 }
+
 
   // Lors de la validation du formulaire, l'inscription sera faite
   // ou bien on pointera les éléments qui sont faux
@@ -38,9 +39,7 @@ export class InscriptionComponent implements OnInit {
     switch (this.formulaireInscription.valid){
       case true:
         try{
-          this.connexionService.inscription(this.formulaireInscription.get("email")?.value,this.formulaireInscription.get("mdp")?.value,
-                                            this.formulaireInscription.get("prenom")?.value,this.formulaireInscription.get("nom")?.value,
-                                            this.formulaireInscription.get("identifiant")?.value).subscribe(
+          this.connexionService.inscription(this.email,this.password,this.prenom,this.nom,this.login).subscribe(
             donnees => {
               this.router.navigate(["client/connexion"]);
             }
@@ -60,6 +59,14 @@ export class InscriptionComponent implements OnInit {
         break;
     }
   }
+
+
+  get login() { return this.formulaireInscription.get("login")?.value; }
+  get password() { return this.formulaireInscription.get("password")?.value; }
+  get mdp_validation() { return this.formulaireInscription.get("mdp_validation")?.value; }
+  get email() { return this.formulaireInscription.get("email")?.value; }
+  get prenom() { return this.formulaireInscription.get("prenom")?.value; }
+  get nom() { return this.formulaireInscription.get("nom")?.value; }
 
 
 

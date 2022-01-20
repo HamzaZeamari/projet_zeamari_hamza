@@ -33,12 +33,7 @@ export class PanierComponent implements OnInit {
   }
 
   ajouter(prod: Produit) {
-    if(prod.stock > 0){
       this.store.dispatch(new AddP(prod));
-    }
-    else{
-      console.log("Désolé ce produit n'est plus en stock");
-    }
   }
 
   supprimer(prod: Produit) {
@@ -46,17 +41,9 @@ export class PanierComponent implements OnInit {
   }
 
   transaction() {
-    if(this.taille > 0){
-      this.paniers.forEach(panier => panier.forEach(produit => produit.stock--))
       this.ajout.unsubscribe();
       this.store.dispatch(new DelAllP());
       console.log("Payé");
-    }
-    else{
-      console.log("Aucun article se trouve dans votre panier");
-    }
-
-
   }
 
 

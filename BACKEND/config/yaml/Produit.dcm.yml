@@ -1,4 +1,4 @@
-Product:
+Produit:
     type: entity
     table: produit
     id:
@@ -17,20 +17,20 @@ Product:
             length: 100
             options:
                 fixed: false
+        stock:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
         categorie:
             type: string
             nullable: true
             length: 100
             options:
                 fixed: false
-        stock:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
         prix:
             type: integer
-            nullable: true
+            nullable: false
             options:
                 unsigned: false
     lifecycleCallbacks: {  }

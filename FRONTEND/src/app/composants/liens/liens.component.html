@@ -1,14 +1,18 @@
 <div>
   <a [routerLink]="['/']">Accueil</a>
-  <div>
+  <br>
+  <div *ngIf="!utilisateurConnecte">
     <a [routerLink]="['/client/inscription']">S'inscrire</a>
+    <br>
     <a [routerLink]="['/client/connexion']">Se connecter</a>
   </div>
-  <div>
+  <div *ngIf="utilisateurConnecte">
     <a [routerLink]="['/produits/catalogue']">Catalogue des produits</a>
+    <br>
     <a [routerLink]="['/produits/panier']">Panier</a>
-    <a (click)="deconnexion()">
+    <br>
+    <button (click)="deconnexion()">
       Déconnexion du compte
-    </a>
+    </button>
   </div>
 </div>

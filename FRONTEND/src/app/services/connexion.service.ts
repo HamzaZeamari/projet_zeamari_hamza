@@ -35,10 +35,10 @@ export class ConnexionService {
     let httpOptions = {
       headers: new HttpHeaders({"Content-Type": "application/x-www-form-urlencoded"})
     };
-    return this.requete.post<Utilisateur>("/api/login", donneesConnexion, httpOptions).pipe(
+    return this.requete.post<Utilisateur>("/api/connexion", donneesConnexion, httpOptions).pipe(
       map((user) => {
         localStorage.setItem('token', JSON.stringify(InterceptorsInterceptor.token));
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('utilisateurConnecte', JSON.stringify(user));
 
         this.utilSub.next(user);
         return user;

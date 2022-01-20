@@ -12,12 +12,14 @@ import {AddP} from "../../../../shared/actions/panier-action";
 })
 export class CatalogueComponent implements OnInit, OnDestroy{
 
-  produits!:  Array<Produit>;
-  ajouts!: Subscription;
+  produits:  Array<Produit> = new Array<Produit>();
+  ajouts: Subscription = new Subscription();
 
   constructor(private catalogueService: CatalogueService, private store: Store) { }
 
   ngOnInit(): void {
+    console.log(this.catalogueService.getProduits());
+    console.log(this.catalogueService.getSubProduits());
     this.produits = this.catalogueService.getProduits();
       this.ajouts = this.catalogueService.getSubProduits().subscribe((prod) => this.produits = prod);
   }
@@ -26,11 +28,7 @@ export class CatalogueComponent implements OnInit, OnDestroy{
   }
 
   ajouter(prod: Produit) {
-    if(prod.stock > 0){
+    console.log(prod);
       this.store.dispatch(new AddP(prod));
-    }
-    else{
-      console.log("Désolé ce produit n'est plus en stock");
-    }
   }
 }

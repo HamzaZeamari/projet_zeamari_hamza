@@ -1,17 +1,17 @@
 <div>
   <form [formGroup]="formulaireConnexion" (ngSubmit)="onSubmit()">
     <div>
-      <label for="id">Identifiant</label>
-      <input type="text" name="id" id="id" formControlName="identifiant">
+      <label for="login">Identifiant</label>
+      <input type="text" name="login" id="login" formControlName="login">
       <div>
-        <app-gestion-mess [controller]="formulaireConnexion.controls['identifiant'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="login"></app-gestion-mess>
       </div>
     </div>
     <div>
-      <label for="mdp">Mot de Passe</label>
-      <input type="password" name="mdp" id="mdp" formControlName="mot_de_passe">
+      <label for="password">Mot de Passe</label>
+      <input type="password" name="password" id="password" formControlName="password">
       <div>
-        <app-gestion-mess [controller]="formulaireConnexion.controls['mot_de_passe'].value"></app-gestion-mess>
+        <app-gestion-mess [controller]="password"></app-gestion-mess>
       </div>
     </div>
     <div>
