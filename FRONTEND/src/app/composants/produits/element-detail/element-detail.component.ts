@@ -19,7 +19,7 @@ export class ElementDetailComponent implements OnInit {
     if (temp.length > 0)
       this.prod = temp[0];
     else
-      this.err = "Erreur! pas de produit avec cet id";
+      this.err = "Erreur";
   }
 
   ngOnInit(): void {

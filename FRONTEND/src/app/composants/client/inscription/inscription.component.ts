@@ -11,16 +11,13 @@ import {ConnexionService} from "../../../services/connexion.service";
   styleUrls: ['./inscription.component.css']
 })
 export class InscriptionComponent implements OnInit {
-  // Initialisation du formulaire d'inscription
   formulaireInscription: FormGroup = new FormGroup({});
   err: string = "";
 
   constructor(private formBuilder: FormBuilder, private router: Router, private connexionService: ConnexionService) { }
 
   ngOnInit(): void {
-    // Former le formulaire avec le formBuilder pour : nom, prenom, identifiant, mdp, mdp_validation et email
-    // en validant si possible le mail et le mot de passe grâce aux différentes méthodes du service de validation
-    this.formulaireInscription = this.formBuilder.group({
+     this.formulaireInscription = this.formBuilder.group({
         prenom: ["", [Validators.required]],
         nom: ["", [Validators.required]],
         login: ["", [Validators.required]],
@@ -33,9 +30,7 @@ export class InscriptionComponent implements OnInit {
 }
 
 
-  // Lors de la validation du formulaire, l'inscription sera faite
-  // ou bien on pointera les éléments qui sont faux
-  onSubmit() : void {
+   onSubmit() : void {
     switch (this.formulaireInscription.valid){
       case true:
         try{

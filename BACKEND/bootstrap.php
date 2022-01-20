@@ -18,11 +18,11 @@ class Config {
         $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/config/yaml"), $isDevMode);
 
         $connexionInformation = array(
-            'host' => 'ec2-54-74-35-87.eu-west-1.compute.amazonaws.com',
+            'host' => 'ec2-63-34-223-144.eu-west-1.compute.amazonaws.com',
             'driver' => 'pdo_pgsql',
-            'user' => 'vbwuomevvnbwgg',
-            'password' => '301966df7eddd260617f5c383cea77c62955daf7eb378a4dda739d81d6aa2cce',
-            'dbname' => 'd4l6rma9dejrbr',
+            'user' => 'jmgssdxlswmaym',
+            'password' => '8e2ade095f8f5e62c79df7b8834c290d6d99fdff4161d7d8048538d0e47f08ce',
+            'dbname' => 'd1b62kb45deoov',
             'port' => '5432'
         );
 

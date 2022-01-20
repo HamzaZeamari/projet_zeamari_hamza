@@ -10,23 +10,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent implements OnInit {
-  // Initialisation du formulaire de connexion
   formulaireConnexion!: FormGroup;
   err!: string;
 
 
   constructor(private formBuilder: FormBuilder , private router: Router, private connexionService: ConnexionService) { }
-
-  // Lorsque la page se lance on appelle la création du formulaire
   ngOnInit(): void {
     this.formulaireConnexion = this.formBuilder.group({
       login: ["", [Validators.required]],
       password: ["", [Validators.required]]
     });
   }
-
-  // Lors de la validation du formulaire, la connexion sera faite
-  // ou bien on pointera les éléments qui sont faux
   onSubmit() : void {
 
     switch (this.formulaireConnexion.valid){
